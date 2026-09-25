@@ -1,0 +1,27 @@
+/* Shared booking form styles: passenger details page + manage contact editor */
+.field-error{display:block;margin-top:5px;color:#b3261e;font-size:.78rem;font-weight:700;line-height:1.35}
+.field-error:empty{display:none}
+.field input[aria-invalid="true"],.field select[aria-invalid="true"]{border-color:#b3261e;box-shadow:0 0 0 3px rgba(179,38,30,.12)}
+.form-alert{display:none;margin:0 0 18px;padding:13px 15px;border:1px solid #f0c9a0;background:#fff1df;color:#8a4d00;border-radius:5px;font-size:.88rem;font-weight:700}
+.form-alert.show{display:block}
+.review{border:1px solid var(--line);border-radius:8px;background:#f5f9fc;padding:18px 20px;margin-bottom:24px}
+.review h3{margin:0 0 13px;color:var(--navy);font-size:.8rem;font-weight:800;text-transform:uppercase;letter-spacing:.06em}
+.review dl{margin:0;display:grid;grid-template-columns:auto 1fr;gap:8px 16px}
+.review dt{color:var(--muted);font-size:.85rem;font-weight:700}
+.review dd{margin:0;color:var(--navy);font-size:.92rem;font-weight:600}
+.review .review-total{margin-top:14px;padding-top:13px;border-top:1px solid var(--line);display:flex;justify-content:space-between;align-items:baseline;gap:14px}
+.review .review-total span{color:var(--muted);font-size:.85rem;font-weight:700}
+.review .review-total strong{color:var(--navy);font-size:1.3rem;font-weight:800}
+.contact-editor{margin-top:22px;padding:20px;border:1px solid var(--line);border-radius:8px;background:#fff}
+.contact-editor[hidden]{display:none}
+.contact-editor h3{margin:0 0 4px;color:var(--navy);font-size:1.05rem}
+.contact-editor>p{margin:0 0 16px;color:var(--muted);font-size:.86rem}
+.contact-editor .button{margin-top:15px}
+.form-status{margin:12px 0 0;font-size:.85rem;font-weight:700}
+.form-status:empty{display:none}
+.form-status.ok{color:#175b37}
+.form-status.bad{color:#b3261e}
+.empty-state{text-align:center;padding:14px 0 6px}
+.empty-state p{color:var(--muted)}
+@media(max-width:700px){.manage-form{grid-template-columns:1fr}}
+@media(max-width:580px){.review dl{grid-template-columns:1fr;gap:2px 0}.review dd{margin-bottom:9px}.contact-editor{padding:16px}}
