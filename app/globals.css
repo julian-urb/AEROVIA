@@ -148,7 +148,7 @@ img {
 /* ---------- Hero ---------- */
 .hero {
   position: relative;
-  background: var(--color-sky);
+  background: #071f3e;
   padding: 0;
   min-height: 440px;
   display: flex;
@@ -195,14 +195,14 @@ img {
 .hero-tint {
   position: absolute;
   inset: 0;
-  background: rgba(246, 251, 255, 0.82);
+  background: rgba(3, 29, 59, 0.53);
 }
 .hero-grid {
   display: block;
 }
 .hero-copy {
   max-width: 650px;
-  padding-bottom: 14px;
+  padding-bottom: 32px;
 }
 .eyebrow {
   font-weight: 800;
@@ -212,21 +212,25 @@ img {
   text-transform: uppercase;
 }
 .hero .eyebrow {
-  color: var(--color-blue);
+  color: #b8dcff;
 }
 .hero h1 {
   font-size: clamp(2.65rem, 5vw, 4.85rem);
   line-height: 1.02;
   letter-spacing: 0;
   margin: 12px 0 17px;
-  color: var(--color-navy);
+  color: #fff;
   max-width: 11ch;
 }
 .hero p {
   font-size: 1.08rem;
-  color: var(--color-ink);
+  color: #e7f3ff;
   max-width: 50ch;
   margin: 0;
+}
+.hero .booking {
+  margin-top: 0;
+  border-radius: 8px 8px 0 0;
 }
 
 /* ---------- Booking card ---------- */
@@ -1100,14 +1104,18 @@ img {
     padding-top: 42px;
   }
   .hero-copy {
-    padding-bottom: 14px;
+    padding-bottom: 28px;
   }
   .hero h1 {
     font-size: 2.65rem;
-    max-width: 10ch;
   }
   .hero p {
     font-size: 1rem;
+  }
+  .hero .booking {
+    margin-left: -14px;
+    margin-right: -14px;
+    border-radius: 0;
   }
   .booking {
     width: 100%;
