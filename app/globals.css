@@ -69,8 +69,9 @@ img {
 
 /* ---------- Top line ---------- */
 .topline {
-  background: var(--color-navy);
-  color: #d9edff;
+  background: var(--color-sky);
+  color: var(--color-muted);
+  border-bottom: 1px solid var(--color-line);
   font-size: 0.79rem;
 }
 .topline .shell {
@@ -82,7 +83,7 @@ img {
 }
 .topline a:hover,
 .topline a:focus-visible {
-  color: #fff;
+  color: var(--color-blue);
   text-decoration: underline;
 }
 
@@ -147,7 +148,7 @@ img {
 /* ---------- Hero ---------- */
 .hero {
   position: relative;
-  background: #071f3e;
+  background: var(--color-sky);
   padding: 0;
   min-height: 440px;
   display: flex;
@@ -194,7 +195,7 @@ img {
 .hero-tint {
   position: absolute;
   inset: 0;
-  background: rgba(3, 29, 59, 0.53);
+  background: rgba(246, 251, 255, 0.82);
 }
 .hero-grid {
   display: block;
@@ -211,19 +212,19 @@ img {
   text-transform: uppercase;
 }
 .hero .eyebrow {
-  color: #b8dcff;
+  color: var(--color-blue);
 }
 .hero h1 {
   font-size: clamp(2.65rem, 5vw, 4.85rem);
   line-height: 1.02;
   letter-spacing: 0;
   margin: 12px 0 17px;
-  color: #fff;
+  color: var(--color-navy);
   max-width: 11ch;
 }
 .hero p {
   font-size: 1.08rem;
-  color: #e7f3ff;
+  color: var(--color-ink);
   max-width: 50ch;
   margin: 0;
 }
@@ -613,7 +614,7 @@ img {
   font-size: 0.92rem;
 }
 .allow-table thead th {
-  background: var(--color-navy);
+  background: var(--color-blue);
   color: #fff;
   font-size: 0.74rem;
   text-transform: uppercase;
@@ -953,8 +954,9 @@ img {
 
 /* ---------- Footer ---------- */
 .site-footer {
-  background: var(--color-navy);
-  color: #c9e3f8;
+  background: var(--color-sky);
+  color: var(--color-muted);
+  border-top: 1px solid var(--color-line);
   padding: 52px 0 24px;
 }
 .footer-grid {
@@ -975,7 +977,7 @@ img {
   max-width: 31ch;
 }
 .footer-grid h2 {
-  color: #fff;
+  color: var(--color-navy);
   margin: 0 0 11px;
   font-size: 0.87rem;
 }
@@ -986,11 +988,11 @@ img {
 }
 .footer-grid a:hover,
 .footer-grid a:focus-visible {
-  color: #fff;
+  color: var(--color-blue);
   text-decoration: underline;
 }
 .footer-bottom {
-  border-top: 1px solid #265486;
+  border-top: 1px solid var(--color-line);
   margin-top: 36px;
   padding-top: 18px;
   font-size: 0.8rem;
@@ -998,12 +1000,12 @@ img {
   justify-content: space-between;
 }
 .footer-bottom a {
-  color: #d9edff;
+  color: var(--color-blue);
   text-decoration: underline;
 }
 .footer-bottom a:hover,
 .footer-bottom a:focus-visible {
-  color: #fff;
+  color: var(--color-navy);
 }
 
 /* ---------- Responsive: 1220 ---------- */
@@ -1489,8 +1491,8 @@ img {
 /* ---------- Destination detail ---------- */
 .destination-hero {
   position: relative;
-  color: #fff;
-  background: #071f3e;
+  color: var(--color-navy);
+  background: var(--color-sky);
   overflow: hidden;
 }
 .destination-hero-image {
@@ -1498,23 +1500,23 @@ img {
   inset: 0;
   background-size: cover;
   background-position: center;
-  opacity: 0.42;
+  opacity: 0.2;
 }
 .destination-hero .shell {
   position: relative;
   z-index: 1;
 }
 .destination-hero h1 {
-  color: #fff;
+  color: var(--color-navy);
 }
 .destination-hero .eyebrow {
-  color: #b8dcff;
+  color: var(--color-blue);
 }
 .destination-hero p {
-  color: #e7f3ff;
+  color: var(--color-muted);
 }
 .destination-price strong {
-  color: #ffd479;
+  color: var(--color-blue);
   font-size: 1.35rem;
 }
 
@@ -1529,7 +1531,7 @@ img {
   max-width: min(360px, calc(100% - 40px));
 }
 .toast {
-  background: var(--color-navy);
+  background: var(--color-blue);
   color: #fff;
   padding: 12px 16px;
   border-radius: 6px;
@@ -1623,66 +1625,6 @@ img {
     left: 12px;
     bottom: 12px;
     max-width: none;
-  }
-}
-
-/* ---------- Dark mode ---------- */
-@media (prefers-color-scheme: dark) {
-  :root {
-    --color-ink: #e6edf4;
-    --color-muted: #9fb0c0;
-    --color-line: #243444;
-    --color-sky: #16283a;
-    --color-warn-bg: #3a2c14;
-    --color-warn-border: #7a5a20;
-    --color-warn-text: #ffd479;
-    --color-ok-bg: #14301f;
-    --color-ok-text: #86e0a8;
-  }
-  body {
-    background: #0d1620;
-  }
-  .site-header,
-  .booking,
-  .manage-card,
-  .info-card,
-  .destination-card,
-  .pax-panel,
-  .nav-toggle,
-  .seat,
-  .booking-step,
-  .filter-bar {
-    background: #152130;
-  }
-  .topline {
-    background: #06121f;
-  }
-  .seat-dot.available {
-    background: #152130;
-  }
-  .seat.occupied {
-    background: #223242;
-    color: #6b7d8e;
-  }
-  .manage-card h2,
-  .section-head h2,
-  .review dd,
-  .fare-breakdown dd,
-  .fare-breakdown .fare-total dt,
-  .fare-breakdown .fare-total dd,
-  .booking-step.active {
-    color: #dbeafe;
-  }
-  .destination-card .deal-body strong,
-  .info-card h2 {
-    color: #dbeafe;
-  }
-  .button.ghost {
-    color: #cfe4ff;
-  }
-  .skeleton-lines span {
-    background: linear-gradient(90deg, #1b2938 25%, #223242 50%, #1b2938 75%);
-    background-size: 200% 100%;
   }
 }
 
