@@ -1,5 +1,6 @@
 import {
   BOOKING_KEY,
+  BOOKINGS_KEY,
   DEFAULT_CONTACT,
   DEFAULT_PASSENGERS,
   EXTRA_KG_RATE,
@@ -66,10 +67,9 @@ export function saveSearch(search: SearchState): void {
   window.localStorage.setItem(SEARCH_KEY, JSON.stringify(search));
 }
 
-export function getBooking(): Booking | null {
-  const saved = readJSON(BOOKING_KEY);
-  if (!saved || typeof saved !== "object") return null;
-  const record = saved as Record<string, unknown>;
+function normalizeBooking(value: unknown): Booking | null {
+  if (!value || typeof value !== "object") return null;
+  const record = value as Record<string, unknown>;
   if (typeof record.reference !== "string" || !record.reference) return null;
   const passengers = asRecord(record.passengers);
   const baggage = asRecord(record.baggage);
@@ -83,9 +83,42 @@ export function getBooking(): Booking | null {
   } as Booking;
 }
 
+export function getBooking(): Booking | null {
+  return normalizeBooking(readJSON(BOOKING_KEY));
+}
+
+export function getBookings(): Booking[] {
+  const saved = readJSON(BOOKINGS_KEY);
+  if (!Array.isArray(saved)) {
+    const current = getBooking();
+    return current ? [current] : [];
+  }
+  return saved
+    .map((entry) => normalizeBooking(entry))
+    .filter((entry): entry is Booking => entry !== null);
+}
+
+export function getBookingByReference(reference: string): Booking | null {
+  const ref = reference.trim().toUpperCase();
+  if (!ref) return getBooking();
+  const match = getBookings().find((booking) => booking.reference === ref);
+  if (match) return match;
+  const current = getBooking();
+  return current && current.reference === ref ? current : null;
+}
+
 export function saveBooking(booking: Booking): void {
   if (typeof window === "undefined") return;
-  window.localStorage.setItem(BOOKING_KEY, JSON.stringify(booking));
+  const withTimestamp: Booking = {
+    ...booking,
+    createdAt: booking.createdAt ?? new Date().toISOString(),
+  };
+  window.localStorage.setItem(BOOKING_KEY, JSON.stringify(withTimestamp));
+  const others = getBookings().filter(
+    (entry) => entry.reference !== withTimestamp.reference,
+  );
+  const next = [withTimestamp, ...others].slice(0, 20);
+  window.localStorage.setItem(BOOKINGS_KEY, JSON.stringify(next));
 }
 
 export function clearBooking(): void {

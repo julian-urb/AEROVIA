@@ -6,6 +6,7 @@ export const metadata: Metadata = {
   title: "Travel Information",
   description:
     "Everything you need before takeoff: baggage, check-in, travel documents, and destination requirements.",
+  alternates: { canonical: "/travel-info" },
   openGraph: {
     title: "Travel Information | AEROVIA",
     description:

@@ -4,8 +4,15 @@ import { expect, test } from "@playwright/test";
 const routes = [
   "/",
   "/destinations",
+  "/destinations/tokyo",
   "/manage",
   "/passenger-details",
+  "/passengers",
+  "/seats",
+  "/payment",
+  "/confirmation",
+  "/privacy",
+  "/terms",
   "/results",
   "/travel-info",
 ];

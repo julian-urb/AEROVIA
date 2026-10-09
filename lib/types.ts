@@ -41,6 +41,23 @@ export type Contact = {
   phone: string;
 };
 
+export type TravelerDetail = {
+  type: PassengerKey;
+  firstName: string;
+  lastName: string;
+};
+
+export type FareBreakdown = {
+  farePerTraveler: number;
+  subtotal: number;
+  taxes: number;
+  fees: number;
+  baggage: number;
+  discount: number;
+  promo: string;
+  total: number;
+};
+
 export type Booking = SearchState & {
   contact: Contact;
   travelers: number;
@@ -48,6 +65,10 @@ export type Booking = SearchState & {
   total: number;
   time: string;
   reference: string;
+  travelerDetails?: TravelerDetail[];
+  seats?: string[];
+  breakdown?: FareBreakdown;
+  createdAt?: string;
 };
 
 export type Airport = {
@@ -75,10 +96,12 @@ export type Destination = {
   slug: string;
   city: string;
   country: string;
+  airport: string;
   region: DestinationRegion;
   tag: string;
   price: number;
   image: string;
+  summary: string;
 };
 
 export const DESTINATION_REGIONS = [

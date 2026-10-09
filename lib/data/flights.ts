@@ -47,3 +47,8 @@ export function getFlights(from: string, to: string): Flight[] {
   if (reverse) return reverse;
   return build(7990, "4h 30m");
 }
+
+export function routeExists(from: string, to: string): boolean {
+  if (!from || !to || from === to) return false;
+  return Boolean(ROUTES[`${from}|${to}`] || ROUTES[`${to}|${from}`]);
+}

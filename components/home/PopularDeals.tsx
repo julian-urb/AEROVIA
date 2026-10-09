@@ -16,7 +16,9 @@ export function PopularDeals() {
           <div className="deal-body">
             <small>Manila to {destination.city}</small>
             <div className="deal-price">{peso(destination.price)}</div>
-            <Link href="/destinations">Explore {destination.city}</Link>
+            <Link href={`/destinations/${destination.slug}`}>
+              Explore {destination.city}
+            </Link>
           </div>
         </article>
       ))}

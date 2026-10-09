@@ -4,6 +4,11 @@ import { useEffect, useState } from "react";
 import { useRouter } from "next/navigation";
 import { DESTINATIONS, ORIGINS } from "@/lib/data/airports";
 import { makeBaggage, totalTravelers } from "@/lib/pricing";
+import {
+  hasSearchParams,
+  queryToSearch,
+  searchToQuery,
+} from "@/lib/searchParams";
 import { saveSearch } from "@/lib/storage";
 import { DEFAULT_PASSENGERS } from "@/lib/constants";
 import type {
@@ -41,6 +46,34 @@ export function BookingWidget() {
     setToday(todayISO());
   }, []);
 
+  useEffect(() => {
+    // Deep links like /?to=Tokyo%20(NRT)#book pre-fill the widget.
+    const params = new URLSearchParams(window.location.search);
+    if (!hasSearchParams(params)) return;
+    const next = queryToSearch(params, {
+      from,
+      to,
+      depart,
+      returning,
+      cabin,
+      passengers,
+      baggage: makeBaggage(cabin, passengers, extraKg),
+      tripType,
+    });
+    /* eslint-disable react-hooks/set-state-in-effect */
+    setFrom(next.from);
+    setTo(next.to);
+    setDepart(next.depart);
+    setReturning(next.returning);
+    setCabin(next.cabin);
+    setPassengers(next.passengers);
+    setExtraKg(next.baggage.extraKg);
+    setTripType(next.tripType);
+    /* eslint-enable react-hooks/set-state-in-effect */
+    // Intentionally run once on mount from the initial URL.
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
+
   function handleDepart(value: string) {
     setDepart(value);
     if (returning && value && returning < value) setReturning(value);
@@ -65,7 +98,7 @@ export function BookingWidget() {
       tripType,
     };
     saveSearch(search);
-    router.push("/results");
+    router.push(`/results?${searchToQuery(search)}`);
   }
 
   return (

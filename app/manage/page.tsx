@@ -1,8 +1,9 @@
 "use client";
 
 import { useEffect, useState } from "react";
+import { useToast } from "@/components/site/ToastProvider";
 import { contactName, itineraryLines } from "@/lib/booking";
-import { getBooking, saveBooking } from "@/lib/storage";
+import { getBookingByReference, saveBooking } from "@/lib/storage";
 import {
   REACHABLE_FIELDS,
   validateContact,
@@ -15,6 +16,7 @@ type Result =
   | { ok: false; message: string };
 
 export default function ManagePage() {
+  const { notify } = useToast();
   const [reference, setReference] = useState("");
   const [surname, setSurname] = useState("");
   const [result, setResult] = useState<Result | null>(null);
@@ -30,22 +32,25 @@ export default function ManagePage() {
   );
 
   useEffect(() => {
-    const confirmation = new URLSearchParams(window.location.search).get(
-      "confirmation",
-    );
+    // Query string is browser-only; read it after mount. Supports share links
+    // like /manage?ref=AER123&last=Santos as well as the confirmation redirect.
+    const params = new URLSearchParams(window.location.search);
+    const confirmation = params.get("confirmation") || params.get("ref");
+    const last = params.get("last");
+    /* eslint-disable react-hooks/set-state-in-effect */
     if (confirmation) {
-      // Query string is browser-only; read it after mount.
-      // eslint-disable-next-line react-hooks/set-state-in-effect
-      setReference(confirmation);
+      setReference(confirmation.toUpperCase());
       setHint(
         `Your booking reference is ${confirmation}. Enter it with your last name to view your itinerary.`,
       );
     }
+    if (last) setSurname(last);
+    /* eslint-enable react-hooks/set-state-in-effect */
   }, []);
 
   function findBooking() {
-    const stored = getBooking();
     const ref = reference.trim().toUpperCase();
+    const stored = getBookingByReference(ref);
     const last = surname.trim().toLowerCase();
     const matches =
       stored &&
@@ -78,6 +83,7 @@ export default function ManagePage() {
     setCeErrors(found);
     if (Object.keys(found).length) {
       setCeStatus({ text: "Please correct the highlighted fields.", ok: false });
+      notify("Please correct the highlighted fields.", "bad");
       return;
     }
     const updated: Booking = { ...booking, contact: next };
@@ -85,6 +91,7 @@ export default function ManagePage() {
     setBooking(updated);
     setResult({ ok: true, lines: itineraryLines(updated) });
     setCeStatus({ text: "Contact details updated.", ok: true });
+    notify("Contact details updated.");
   }
 
   return (

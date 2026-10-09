@@ -5,6 +5,7 @@ export const metadata: Metadata = {
   title: "Destinations",
   description:
     "Explore popular routes from Manila and find the trip that fits your plans.",
+  alternates: { canonical: "/destinations" },
   openGraph: {
     title: "Destinations | AEROVIA",
     description:

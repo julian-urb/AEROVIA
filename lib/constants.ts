@@ -5,6 +5,40 @@ export const EXTRA_KG_RATE = 300;
 export const EXTRA_KG_STEP = 5;
 export const MAX_EXTRA_KG = 60;
 
+export const TAX_RATE = 0.12;
+export const FEES_PER_TRAVELER = 550;
+
+export const SEAT_ROWS = 18;
+export const SEAT_LETTERS = ["A", "B", "C", "D", "E", "F"] as const;
+
+// Deterministic "already taken" seats so the demo is stable between renders.
+export const OCCUPIED_SEATS = [
+  "1A",
+  "1B",
+  "2C",
+  "3D",
+  "6A",
+  "6B",
+  "7E",
+  "11F",
+  "12A",
+  "14C",
+] as const;
+
+export type Promo = {
+  code: string;
+  percent: number;
+  label: string;
+};
+
+export const PROMOS: Promo[] = [
+  { code: "AEROVIA10", percent: 0.1, label: "10% off your fare" },
+  { code: "FLY5", percent: 0.05, label: "5% off your fare" },
+];
+
+export const PAYMENT_DEMO_NOTICE =
+  "Demo checkout: no real payment is taken and no card details are stored.";
+
 export const CABIN_BAGGAGE: Record<
   Cabin,
   { checked: number; carryOn: number }
@@ -69,3 +103,4 @@ export const DEFAULT_CONTACT = {
 
 export const SEARCH_KEY = "aeroviaSearch";
 export const BOOKING_KEY = "aeroviaBooking";
+export const BOOKINGS_KEY = "aeroviaBookings";

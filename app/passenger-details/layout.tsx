@@ -4,6 +4,7 @@ export const metadata: Metadata = {
   title: "Passenger Details",
   description:
     "Review your itinerary and enter the contact details for your AEROVIA booking.",
+  alternates: { canonical: "/passenger-details" },
   openGraph: {
     title: "Passenger Details | AEROVIA",
     description:

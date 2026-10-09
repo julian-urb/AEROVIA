@@ -74,6 +74,8 @@ export const footerGroups: FooterGroup[] = [
         label: "Taxes, Fees, and Surcharges",
         href: "/travel-info/#taxes-fees-and-surcharges",
       },
+      { label: "Privacy Policy", href: "/privacy" },
+      { label: "Terms of Use", href: "/terms" },
     ],
   },
 ];

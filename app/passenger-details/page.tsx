@@ -3,6 +3,7 @@
 import { useEffect, useState } from "react";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
+import { BookingSteps } from "@/components/booking/BookingSteps";
 import { baggageSentence, bookingView } from "@/lib/booking";
 import { describePassengers, peso } from "@/lib/format";
 import { DEFAULT_CONTACT } from "@/lib/constants";
@@ -48,7 +49,7 @@ export default function PassengerDetailsPage() {
     );
     if (count) return;
     saveBooking({ ...booking, contact });
-    router.push(`/manage?confirmation=${booking.reference}`);
+    router.push("/passengers");
   }
 
   const view = hasBooking && booking ? bookingView(booking) : null;
@@ -73,6 +74,7 @@ export default function PassengerDetailsPage() {
       </section>
       <section className="section alt">
         <div className="shell">
+          <BookingSteps current="contact" />
           <div className="manage-card">
             <h2>Lead passenger details</h2>
             <p>

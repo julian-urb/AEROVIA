@@ -14,7 +14,8 @@ import {
   subtotalFor,
   totalTravelers,
 } from "@/lib/pricing";
-import { getSearch, saveBooking } from "@/lib/storage";
+import { getSearch, saveBooking, saveSearch } from "@/lib/storage";
+import { hasSearchParams, queryToSearch } from "@/lib/searchParams";
 import type { Booking, SearchState } from "@/lib/types";
 
 export default function ResultsPage() {
@@ -23,8 +24,13 @@ export default function ResultsPage() {
 
   useEffect(() => {
     // localStorage is only available in the browser, so load the search after mount.
+    // URL params make results shareable and survive a fresh session.
+    const stored = getSearch();
+    const params = new URLSearchParams(window.location.search);
+    const next = hasSearchParams(params) ? queryToSearch(params, stored) : stored;
+    if (hasSearchParams(params)) saveSearch(next);
     // eslint-disable-next-line react-hooks/set-state-in-effect
-    setSearch(getSearch());
+    setSearch(next);
   }, []);
 
   if (!search) {

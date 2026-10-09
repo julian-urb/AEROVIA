@@ -4,14 +4,19 @@ import {
   DEFAULT_PASSENGERS,
   EXTRA_KG_RATE,
   EXTRA_KG_STEP,
+  FEES_PER_TRAVELER,
   MAX_EXTRA_KG,
   MAX_PAX,
   PASSENGER_TYPES,
+  PROMOS,
+  TAX_RATE,
+  type Promo,
 } from "./constants";
 import { PASSENGER_KEYS } from "./types";
 import type {
   Baggage,
   Cabin,
+  FareBreakdown,
   PassengerCounts,
   PassengerKey,
 } from "./types";
@@ -94,6 +99,45 @@ export function makeBaggage(
     cost: extraBaggageCost(kg),
     rate: EXTRA_KG_RATE,
     includedKg: includedKg(cabin, travelers),
+  };
+}
+
+export function taxesFor(subtotal: number): number {
+  return Math.round(subtotal * TAX_RATE);
+}
+
+export function feesFor(travelers: number): number {
+  return FEES_PER_TRAVELER * travelers;
+}
+
+export function findPromo(code: string): Promo | null {
+  const normalized = code.trim().toUpperCase();
+  if (!normalized) return null;
+  return PROMOS.find((promo) => promo.code === normalized) ?? null;
+}
+
+export function fareBreakdownFor(
+  farePerTraveler: number,
+  travelers: number,
+  extraCost: number,
+  promoCode = "",
+): FareBreakdown {
+  const subtotal = subtotalFor(farePerTraveler, travelers);
+  const taxes = taxesFor(subtotal);
+  const fees = feesFor(travelers);
+  const baggage = Math.max(0, Math.round(extraCost));
+  const promo = findPromo(promoCode);
+  const discount = promo ? Math.round(subtotal * promo.percent) : 0;
+  const total = subtotal + taxes + fees + baggage - discount;
+  return {
+    farePerTraveler,
+    subtotal,
+    taxes,
+    fees,
+    baggage,
+    discount,
+    promo: promo?.code ?? "",
+    total,
   };
 }
 
